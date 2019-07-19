@@ -1,0 +1,18 @@
+version: '2.1'
+
+services:
+  customer-management-service:
+    image: customer-management-service-image
+    build: ./customer-management-service
+    ports:
+      - 80:80
+  product-management-service:
+    image: product-management-service-image
+    build: ./product-management-service
+    ports:
+      - 80:80
+  cart-management-service:
+    image: cart-management-service-image
+    build: ./cart-management-service
+    ports:
+      - 80:80
