@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  microservices-practice:
+    image: microservices-practice
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
