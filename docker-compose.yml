@@ -4,15 +4,46 @@ services:
   customer-management-service:
     image: customer-management-service-image
     build: ./customer-management-service
+    links:
+      - customer-db
+    depends_on:
+      - customer-db
+      # - mq-service
     ports:
-      - 80:80
+      - 8001:80
+
   product-management-service:
     image: product-management-service-image
     build: ./product-management-service
+    links:
+     - product-db:DB_HOST
+    depends_on:
+      - product-db
     ports:
-      - 80:80
+      - 8002:80
+
   cart-management-service:
     image: cart-management-service-image
     build: ./cart-management-service
+    links:
+     - cart-db:DB_HOST
+    depends_on:
+      - cart-db
+      # - mq-service
     ports:
-      - 80:80
+      - 8003:80
+
+  customer-db:
+    image: mongo
+    ports:
+    - "27017:27017"
+  product-db:
+    image: mongo
+  cart-db:
+    image: mongo
+
+  mq-service:
+    image: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
