@@ -1,4 +1,6 @@
 const customer = require('../classes/customer');
+// const MQService = require('../../config/mqService');
+// const QueueType = require('../../config/queues/type');
 
 exports.get = async (req , res) => {
 
@@ -46,6 +48,11 @@ exports.create = async (req , res) => {
 	try{
 
 		const saved = await customer.create(req.body);
+
+		// send queue
+		// let obj = JSON.stringify(saved)
+		// await MQService.publishToQueue(QueueType.CREATE_CUSTOMER , obj);
+
 		res.success(saved);
 
 	} catch (err){
