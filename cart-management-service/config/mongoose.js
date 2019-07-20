@@ -5,7 +5,8 @@ module.exports = function(app) {
 
   // assign uri
   db_auth = (config.username + config.password).length === 0 ? "" : config.username + ":" + config.password + "@";
-  uri = "mongodb://" + db_auth + config.hostname + "/" + config.database_name;
+  // uri = "mongodb://" + db_auth + config.hostname + "/" + config.database_name;
+  let uri = 'mongodb://cart-db:27017' 
 
   require('../app/models');
 
