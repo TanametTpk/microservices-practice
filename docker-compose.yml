@@ -1,0 +1,49 @@
+version: '2.1'
+
+services:
+  customer-management-service:
+    image: customer-management-service-image
+    build: ./customer-management-service
+    links:
+      - customer-db
+    depends_on:
+      - customer-db
+    environment:
+      - MESSAGE_QUEUE_URL=mq-service
+    ports:
+      - 8001:80
+
+  product-management-service:
+    image: product-management-service-image
+    build: ./product-management-service
+    links:
+     - product-db
+    depends_on:
+      - product-db
+    ports:
+      - 8002:80
+
+  cart-management-service:
+    image: cart-management-service-image
+    build: ./cart-management-service
+    links:
+     - cart-db
+    depends_on:
+      - cart-db
+    environment:
+      - MESSAGE_QUEUE_URL=mq-service
+    ports:
+      - 8003:80
+
+  customer-db:
+    image: mongo
+  product-db:
+    image: mongo
+  cart-db:
+    image: mongo
+
+  mq-service:
+    image: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
